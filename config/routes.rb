@@ -1,5 +1,8 @@
 SampleApp3::Application.routes.draw do
-  get "users/new"
+  #used for routing console User.new to "new" action
+  #get "users/new"
+  #Replaced with below to allow REST-style URL: users/1
+  resources :users
   
   root 'static_pages#home'
   match '/signup',  to: 'users#new',            via: 'get'
