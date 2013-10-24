@@ -19,6 +19,9 @@ describe "Authentication" do
 
       it { should have_title('Sign in') }
       it { should have_selector('div.alert.alert-error', text: 'Invalid') }
+      it { should_not have_link('Profile') }
+      it { should_not have_link('Settings') }
+
 
       describe "after visiting another page" do
       	before { click_link "Home" }
@@ -50,6 +53,7 @@ describe "Authentication" do
       let(:user) { FactoryGirl.create(:user) }
 
       describe "when attempting to visit a protected page" do
+        
         before do
           visit edit_user_path(user)
           fill_in "Email",    with: user.email

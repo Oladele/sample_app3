@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :signed_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user,     only: :destroy
+  before_action :already_signed_in_user, only: [:new, :create]
 
   def index
     @users = User.paginate(page: params[:page])
@@ -68,6 +69,12 @@ class UsersController < ApplicationController
       #   redirect_to signin_url
       # end
       #unfortunately same shortcut for flash[:notice] does not apply to flash[:error] or flash[:success]
+    end
+
+    def already_signed_in_user
+    if signed_in?
+       redirect_to root_url, notice:"You Are Already Signed-in"
+      end
     end
 
     def correct_user
